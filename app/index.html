@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Price & Returns Analysis Tool</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@2.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>📈 Share Price & Returns Analysis Tool</h1>
+
+    <!-- File Upload Section -->
+    <div class="card">
+        <h2>📁 Load Data Files</h2>
+        <div class="controls-grid">
+            <div class="control-group">
+                <label class="form-label">Share Prices CSV</label>
+                <div class="file-upload" id="pricesUpload">
+                    <p>Drop cleaned_prices.csv here or click to select</p>
+                    <input type="file" id="pricesFile" accept=".csv" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="form-label">Returns CSV</label>
+                <div class="file-upload" id="returnsUpload">
+                    <p>Drop cleaned_returns.csv here or click to select</p>
+                    <input type="file" id="returnsFile" accept=".csv" />
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 15px;">
+            <button class="btn btn-secondary" onclick="loadSampleData()">
+                🎯 Load Sample Data
+            </button>
+        </div>
+    </div>
+
+    <!-- Data Info Section -->
+    <div class="card" id="dataInfoCard" style="display: none;">
+        <h2>📊 Dataset Information</h2>
+        <div class="stats-grid" id="dataInfoGrid">
+            <!-- Data info will be populated here -->
+        </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="card">
+        <h2>⚙️ Chart Controls</h2>
+        <div class="controls-grid">
+            <div class="control-group">
+                <label class="form-label">Data Type</label>
+                <select id="dataType" class="form-select">
+                    <option value="prices">Share Prices</option>
+                    <option value="returns">Return Rates (%)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="form-label">Start Date</label>
+                <input type="date" id="startDate" class="form-input" />
+            </div>
+            <div class="control-group">
+                <label class="form-label">End Date</label>
+                <input type="date" id="endDate" class="form-input" />
+            </div>
+            <div class="control-group">
+                <label class="form-label">Chart Type</label>
+                <select id="chartType" class="form-select">
+                    <option value="line">Line Chart</option>
+                    <option value="area">Area Chart</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="form-label">Select Funds to Display</label>
+            <div class="fund-selection" id="fundSelection">
+                <!-- Fund checkboxes will be populated dynamically -->
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="updateChart()">📊 Update Chart</button>
+            <button class="btn btn-secondary" onclick="resetFilters()">🔄 Reset Filters</button>
+            <button class="btn btn-secondary" onclick="exportChart()">🖼️ Export PNG</button>
+            <button class="btn btn-secondary" onclick="exportData()">💾 Export CSV</button>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="card">
+        <h2>📊 Statistics</h2>
+        <div class="stats-grid" id="statsGrid">
+            <div class="loading">Load data to see statistics</div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="card">
+        <h2 id="chartTitle">📈 Share Price Analysis</h2>
+        <div class="chart-container">
+            <canvas id="mainChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing data...</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
